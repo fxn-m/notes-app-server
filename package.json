@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.2",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.37.0",
+    "express": "^4.21.2",
+    "google-auth-library": "^9.15.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "nodemon": "^3.1.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
