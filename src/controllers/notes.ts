@@ -22,25 +22,31 @@ export const getNotes = async (req: Request, res: Response) => {
 
 export const createNote = async (req: Request, res: Response) => {
   const { notebookId } = req.params
-  const { userId, xPercent, yPercent, content } = req.body
+  const { userId, id, xPercent, yPercent, content } = req.body
 
-  if (!xPercent || !yPercent || !content)
-    res.status(400).json({ error: 'All note fields are required' })
+  if (!xPercent || !yPercent || !content) {
+    res.status(400).json({ error: 'All note fields are required' }) // Add "return" here
+    return
+  }
 
   try {
     const [newNote] = await db
       .insert(notes)
       .values({
         notebookId: notebookId,
+        id,
         xPercent,
         yPercent,
         content,
         userId,
       })
       .returning()
+
     res.status(201).json({ note: newNote })
+    return
   } catch (error) {
     res.status(500).json({ error: 'Failed to create note' })
+    return
   }
 }
 
