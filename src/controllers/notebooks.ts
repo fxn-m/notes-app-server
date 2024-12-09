@@ -5,19 +5,24 @@ import db from '@/db'
 import { notebooks } from '@/db/schema'
 
 export const createNotebook = async (req: Request, res: Response) => {
-  const { userId, name } = req.body
+  const { id, userId, name } = req.body
 
   console.log('Creating notebook for user', userId)
 
-  if (!name) res.status(400).json({ error: 'Notebook name is required' })
+  if (!id || !name) {
+    res.status(400).json({ error: 'Notebook ID and name are required' })
+    return
+  }
 
   try {
     const [newNotebook] = await db
       .insert(notebooks)
-      .values({ userId, name })
+      .values({ id, userId, name })
       .returning()
+
     res.status(201).json({ notebook: newNotebook })
   } catch (error) {
+    console.error('Failed to create notebook:', error)
     res.status(500).json({ error: 'Failed to create notebook' })
   }
 }
@@ -49,10 +54,11 @@ export const updateNotebook = async (req: Request, res: Response) => {
     const [updatedNotebook] = await db
       .update(notebooks)
       .set({ name })
-      .where(eq(notebooks.id, Number(id)))
+      .where(eq(notebooks.id, id))
       .returning()
     res.status(200).json({ notebook: updatedNotebook })
   } catch (error) {
+    console.error('Failed to update notebook:', error)
     res.status(500).json({ error: 'Failed to update notebook' })
   }
 }
@@ -64,7 +70,7 @@ export const deleteNotebook = async (req: Request, res: Response) => {
   try {
     await db
       .delete(notebooks)
-      .where(and(eq(notebooks.id, Number(id)), eq(notebooks.userId, userId)))
+      .where(and(eq(notebooks.id, id), eq(notebooks.userId, userId)))
     res.status(200).json({ message: 'Notebook deleted successfully' })
   } catch (error) {
     console.error('Failed to delete notebook:', error)

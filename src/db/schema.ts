@@ -1,24 +1,27 @@
 import {
-  integer,
   pgTable,
   real,
-  serial,
   text,
   timestamp,
+  uuid,
   varchar,
 } from 'drizzle-orm/pg-core'
 
+import { sql } from 'drizzle-orm'
+
 export const notebooks = pgTable('notebooks', {
-  id: serial('id').primaryKey(),
-  userId: varchar('user_id', { length: 255 }).notNull(),
+  id: uuid('id').primaryKey(),
+  userId: text('user_id').notNull(),
   name: text('name').notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 })
 
 export const notes = pgTable('notes', {
-  id: serial('id').primaryKey(),
+  id: uuid('id')
+    .default(sql`gen_random_uuid()`)
+    .primaryKey(),
   userId: varchar('user_id', { length: 255 }).notNull(),
-  notebookId: integer('notebook_id')
+  notebookId: uuid('notebook_id')
     .notNull()
     .references(() => notebooks.id, { onDelete: 'cascade' }),
   xPercent: real('x_percent').notNull(),

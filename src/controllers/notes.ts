@@ -12,9 +12,7 @@ export const getNotes = async (req: Request, res: Response) => {
     const results = await db
       .select()
       .from(notes)
-      .where(
-        and(eq(notes.notebookId, Number(notebookId)), eq(notes.userId, userId))
-      )
+      .where(and(eq(notes.notebookId, notebookId), eq(notes.userId, userId)))
     res.status(200).json({ notes: results })
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch notes' })
@@ -32,7 +30,7 @@ export const createNote = async (req: Request, res: Response) => {
     const [newNote] = await db
       .insert(notes)
       .values({
-        notebookId: Number(notebookId),
+        notebookId: notebookId,
         xPercent,
         yPercent,
         content,
@@ -52,7 +50,7 @@ export const deleteNote = async (req: Request, res: Response) => {
   try {
     await db
       .delete(notes)
-      .where(and(eq(notes.id, Number(id)), eq(notes.userId, userId)))
+      .where(and(eq(notes.id, id), eq(notes.userId, userId)))
     res.status(200).json({ message: 'Note deleted successfully' })
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete note' })
