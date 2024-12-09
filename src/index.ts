@@ -1,3 +1,5 @@
+require('module-alias/register')
+
 import app from './app'
 import dotenv from 'dotenv'
 
