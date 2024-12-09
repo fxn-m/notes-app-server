@@ -7,8 +7,6 @@ import { notebooks } from '@/db/schema'
 export const createNotebook = async (req: Request, res: Response) => {
   const { id, userId, name } = req.body
 
-  console.log('Creating notebook for user', userId)
-
   if (!id || !name) {
     res.status(400).json({ error: 'Notebook ID and name are required' })
     return
@@ -29,8 +27,6 @@ export const createNotebook = async (req: Request, res: Response) => {
 
 export const getNotebooks = async (req: Request, res: Response) => {
   const userId = req.query.userId as string
-
-  console.log('Getting notebooks for user', userId)
 
   try {
     const results = await db

@@ -8,7 +8,11 @@ const app = express()
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://fxn-m.com'],
+    origin: [
+      'http://localhost:5173',
+      'https://fxn-m.com',
+      'https://x9z4tvwl-5173.uks1.devtunnels.ms',
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
