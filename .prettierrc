@@ -3,16 +3,8 @@
   "bracketSpacing": true,
   "endOfLine": "auto",
   "htmlWhitespaceSensitivity": "css",
-  "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
-  "parser": "typescript",
-  "printWidth": 160,
-  "proseWrap": "preserve",
-  "quoteProps": "as-needed",
   "semi": false,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "none",
-  "useTabs": false,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "singleQuote": true,
+  "trailingComma": "es5"
 }
