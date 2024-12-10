@@ -10,6 +10,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
+      'http://localhost:4173',
       'https://fxn-m.com',
       'https://x9z4tvwl-5173.uks1.devtunnels.ms',
     ],
